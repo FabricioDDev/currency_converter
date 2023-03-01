@@ -7,5 +7,7 @@ public class Converter {
 		this.SecondValue = SecondValue;
 	}
 	//comportamientos: convertir, convertir-reversa.
-
+	public Double convert() {
+		return FirstValue / SecondValue;
+	}
 }
