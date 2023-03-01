@@ -1,13 +1,18 @@
 
 public class Converter {
+	//Atributes.
 	public Double FirstValue;
 	public Double SecondValue;
+	//Builder
 	public Converter(Double FirstValue, Double SecondValue) {
 		this.FirstValue = FirstValue;
 		this.SecondValue = SecondValue;
 	}
-	//comportamientos: convertir, convertir-reversa.
+	//Methods
 	public Double convert() {
-		return FirstValue / SecondValue;
+		return FirstValue * SecondValue;
+	}
+	public Double ReverseConvert() {
+		return FirstValue/SecondValue;
 	}
 }
