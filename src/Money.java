@@ -14,8 +14,6 @@ public class Money {
 	public void setEquivalents(String Key,Double value) {
 		Equivalents.put(Key, value);
 	}
-	
-	
 	public Money(String name,double dolar, double euro, double yen) {
 		Name = name;
 		setEquivalents("Dolar", dolar);
