@@ -4,24 +4,19 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.Window.Type;
+import javax.swing.UIManager;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import javax.swing.JButton;
-import javax.swing.JTree;
-import javax.swing.JSpinner;
-import javax.swing.ListSelectionModel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 
 public class FrmDefault extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtInputValue;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -43,47 +38,52 @@ public class FrmDefault extends JFrame {
 	 * Create the frame.
 	 */
 	public FrmDefault() {
+		setBackground(UIManager.getColor("CheckBox.background"));
+		setResizable(false);
+		setTitle("Convertidor de Moneda");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 529, 204);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblTitle = new JLabel("Conversor de Moneda");
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblTitle.setBounds(10, 11, 171, 32);
-		contentPane.add(lblTitle);
+		JLabel lblMonedaDeOrigen = new JLabel("Moneda origen:");
+		lblMonedaDeOrigen.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMonedaDeOrigen.setBounds(21, 57, 99, 21);
+		contentPane.add(lblMonedaDeOrigen);
 		
-		JLabel lblInputValue = new JLabel(" Peso Argentino: $");
-		lblInputValue.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblInputValue.setBounds(10, 86, 125, 20);
-		contentPane.add(lblInputValue);
+		JLabel lblMonedaDeDestino = new JLabel("Moneda de destino:");
+		lblMonedaDeDestino.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMonedaDeDestino.setBounds(239, 60, 125, 14);
+		contentPane.add(lblMonedaDeDestino);
 		
-		txtInputValue = new JTextField();
-		txtInputValue.setBounds(132, 88, 86, 20);
-		contentPane.add(txtInputValue);
-		txtInputValue.setColumns(10);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ARS", "EUR", "USD", "JPY", "KRW", "GBP"}));
+		comboBox.setBounds(130, 57, 99, 20);
+		contentPane.add(comboBox);
 		
-		JLabel lblMoneyTypeList = new JLabel("Convertir a:");
-		lblMoneyTypeList.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMoneyTypeList.setBounds(37, 139, 89, 20);
-		contentPane.add(lblMoneyTypeList);
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"ARS", "EUR", "USD", "JPY", "KRW", "GBP"}));
+		comboBox_1.setBounds(374, 59, 99, 20);
+		contentPane.add(comboBox_1);
 		
-		JButton btnConvert = new JButton("Convertir");
-		btnConvert.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		btnConvert.setBounds(132, 209, 86, 23);
-		contentPane.add(btnConvert);
+		JLabel lblCantidad = new JLabel("Cantidad:");
+		lblCantidad.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCantidad.setBounds(56, 109, 64, 14);
+		contentPane.add(lblCantidad);
 		
-		JComboBox cbxMoneyTypeList = new JComboBox();
-		cbxMoneyTypeList.setEditable(true);
-		cbxMoneyTypeList.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		cbxMoneyTypeList.setModel(new DefaultComboBoxModel(new String[] {"Dolar", "Euro", "Yen"}));
-		cbxMoneyTypeList.setBounds(132, 141, 86, 20);
-		contentPane.add(cbxMoneyTypeList);
+		textField = new JTextField();
+		textField.setBounds(130, 108, 99, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnConvertir = new JButton("Convertir");
+		btnConvertir.setBounds(239, 107, 140, 23);
+		contentPane.add(btnConvertir);
+		
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.setBounds(389, 107, 84, 23);
+		contentPane.add(btnLimpiar);
 	}
 }
