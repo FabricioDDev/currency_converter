@@ -1,23 +1,22 @@
 import java.util.Map;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 public class Money {
-
-	public String Name;
-	private Map<String, Double>Equivalents = new HashMap<String, Double>();
 	
-	public Map<String, Double> getEquivalents() {
-		return Equivalents;
+	public String Name;
+	public HashMap<String, Double> Equivalents = new HashMap<String, Double>();
+	
+	public Money(String Name, Double ars, Double usd, Double eur, Double jpy, Double krw, Double gbp) {
+		this.Name = Name;
+		Equivalents.put("ARS", ars);
+		Equivalents.put("USD", usd);
+		Equivalents.put("EUR", eur);
+		Equivalents.put("JPY", jpy);
+		Equivalents.put("KRW", krw);
+		Equivalents.put("GBP", gbp);
+	} 
+	public Money() {
+		
 	}
-	public Double getElementFromEquivalents(String Key) {
-		return Equivalents.get(Key);
-	}
-	public void setEquivalents(String Key,Double value) {
-		Equivalents.put(Key, value);
-	}
-	public Money(String name,double dolar, double euro, double yen) {
-		Name = name;
-		setEquivalents("Dolar", dolar);
-		setEquivalents("Euro", euro);
-		setEquivalents("Yen", yen);
-	}
+	
 }

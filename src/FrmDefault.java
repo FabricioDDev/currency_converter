@@ -9,14 +9,20 @@ import javax.swing.UIManager;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JComboBox;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.stream.Stream;
+import java.awt.event.ActionEvent;
 
 public class FrmDefault extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField txtCant;
 
 	/**
 	 * Launch the application.
@@ -33,7 +39,7 @@ public class FrmDefault extends JFrame {
 			}
 		});
 	}
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -48,42 +54,79 @@ public class FrmDefault extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblMonedaDeOrigen = new JLabel("Moneda origen:");
-		lblMonedaDeOrigen.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMonedaDeOrigen.setBounds(21, 57, 99, 21);
-		contentPane.add(lblMonedaDeOrigen);
+		JLabel lblDestinationMoney = new JLabel("Tipo Conversion:");
+		lblDestinationMoney.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblDestinationMoney.setBounds(56, 60, 108, 14);
+		contentPane.add(lblDestinationMoney);
 		
-		JLabel lblMonedaDeDestino = new JLabel("Moneda de destino:");
-		lblMonedaDeDestino.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMonedaDeDestino.setBounds(239, 60, 125, 14);
-		contentPane.add(lblMonedaDeDestino);
+		JComboBox cbxOriginMoney = new JComboBox();
+		cbxOriginMoney.setModel(new DefaultComboBoxModel(new String[] {"ARS", "USD", "EUR", "JPY", "KRW", "GBP"}));
+		cbxOriginMoney.setBounds(174, 59, 53, 20);
+		contentPane.add(cbxOriginMoney);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"ARS", "EUR", "USD", "JPY", "KRW", "GBP"}));
-		comboBox.setBounds(130, 57, 99, 20);
-		contentPane.add(comboBox);
+		JLabel lblCant = new JLabel("Cantidad:");
+		lblCant.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCant.setBounds(56, 109, 64, 14);
+		contentPane.add(lblCant);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"ARS", "EUR", "USD", "JPY", "KRW", "GBP"}));
-		comboBox_1.setBounds(374, 59, 99, 20);
-		contentPane.add(comboBox_1);
+		txtCant = new JTextField();
+		txtCant.setBounds(130, 108, 99, 20);
+		contentPane.add(txtCant);
+		txtCant.setColumns(10);
 		
-		JLabel lblCantidad = new JLabel("Cantidad:");
-		lblCantidad.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblCantidad.setBounds(56, 109, 64, 14);
-		contentPane.add(lblCantidad);
+		JComboBox cbxDestinationMoney = new JComboBox();
+		cbxDestinationMoney.setModel(new DefaultComboBoxModel(new String[] {"ARS", "USD", "EUR", "JPY", "KRW", "GBP"}));
+		cbxDestinationMoney.setBounds(420, 59, 53, 20);
+		contentPane.add(cbxDestinationMoney);
 		
-		textField = new JTextField();
-		textField.setBounds(130, 108, 99, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		JButton btnCleaner = new JButton("Limpiar");
+		btnCleaner.setBounds(389, 107, 84, 23);
+		contentPane.add(btnCleaner);
 		
-		JButton btnConvertir = new JButton("Convertir");
-		btnConvertir.setBounds(239, 107, 140, 23);
-		contentPane.add(btnConvertir);
+		JLabel lblWarning = new JLabel("");
+		lblWarning.setBounds(111, 11, 46, 14);
+		contentPane.add(lblWarning);
 		
-		JButton btnLimpiar = new JButton("Limpiar");
-		btnLimpiar.setBounds(389, 107, 84, 23);
-		contentPane.add(btnLimpiar);
+		JLabel label = new JLabel("Tipo Conversion:");
+		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label.setBounds(283, 62, 108, 14);
+		contentPane.add(label);
+		
+
+		
+		
+		
+		ArrayList<Money> MoneyList = new ArrayList<Money>();
+		MoneyList.add(new Money("ARS", 1.00, 0.00508, 0.00479, 0.69283, 6.63601, 0.00423));
+		MoneyList.add(new Money("USD", 197.68, 2.00, 0.94154, 136.611, 1311.88, 0.83531));
+		MoneyList.add(new Money("EUR", 209.924, 1.06194, 1.00, 145.082, 1393.13, 0.88711));
+		MoneyList.add(new Money("JPY", 1.44683, 0.00732, 0.00689, 1.00, 9.60171, 0.00611));
+		MoneyList.add(new Money("KRW", 0.15054, 0.00076, 0.00072, 0.10403, 1.00, 0.00064));
+		MoneyList.add(new Money("GBP", 236.608, 1.19692, 01.12702, 163.522, 1570.22, 1.00));
+		
+	
+		JButton btnConvert = new JButton("Convertir");
+		btnConvert.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent arg0) {
+				
+				Money OriginMoney = new Money();
+				for(Money money : MoneyList) {
+					if(money.Name == cbxOriginMoney.getSelectedItem()) {
+						OriginMoney = money;
+						break;
+					}
+				}
+				String val = (String)cbxDestinationMoney.getSelectedItem();
+				String t = txtCant.getText();
+				if(OriginMoney != null) {
+					Converter convert1 = new Converter(Double.parseDouble(txtCant.getText()),OriginMoney.Equivalents.get(val));
+					Double Valor = convert1.convert();
+					txtCant.setText(Valor.toString());
+				}
+			}  
+		});
+		btnConvert.setBounds(239, 107, 140, 23);
+		contentPane.add(btnConvert);	
 	}
 }
