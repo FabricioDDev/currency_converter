@@ -113,18 +113,21 @@ public class FrmDefault extends JFrame {
 
 			public void actionPerformed(ActionEvent arg0) {
 				
-				Money OriginMoney = new Money();
-				for(Money money : MoneyList) {
-					if(money.Name == cbxOriginMoney.getSelectedItem()) {
-						OriginMoney = money;
-						break;
+				try
+				{
+					Money OriginMoney = new Money();
+					for(Money money : MoneyList) {
+						if(money.Name == cbxOriginMoney.getSelectedItem()) {
+							OriginMoney = money;
+							break;
+						}
 					}
-				}
-				if(OriginMoney != null) {
 					Converter convert1 = new Converter(Double.parseDouble(txtCant.getText()),OriginMoney.Equivalents.get((String)cbxDestinationMoney.getSelectedItem()));
-					Double Valor = convert1.convert();Valor.toString();
-					String a = "$" + txtCant.getText() + cbxOriginMoney.getSelectedItem() + " Equivalen a $" + Valor.toString() + cbxDestinationMoney.getSelectedItem();
-					lblResult.setText(a); 
+					Double Valor = convert1.convert();
+					String label = "$" + txtCant.getText() + cbxOriginMoney.getSelectedItem() + " Equivalen a $" + Valor.toString() + cbxDestinationMoney.getSelectedItem();
+					lblResult.setText(label); 
+				}catch(Exception ex) {
+					throw ex;
 				}
 			}  
 			
