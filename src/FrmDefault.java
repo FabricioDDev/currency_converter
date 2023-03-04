@@ -48,7 +48,7 @@ public class FrmDefault extends JFrame {
 		setResizable(false);
 		setTitle("Convertidor de Moneda");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 529, 204);
+		setBounds(100, 100, 472, 204);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -76,12 +76,8 @@ public class FrmDefault extends JFrame {
 		
 		JComboBox cbxDestinationMoney = new JComboBox();
 		cbxDestinationMoney.setModel(new DefaultComboBoxModel(new String[] {"ARS", "USD", "EUR", "JPY", "KRW", "GBP"}));
-		cbxDestinationMoney.setBounds(420, 59, 53, 20);
+		cbxDestinationMoney.setBounds(346, 59, 53, 20);
 		contentPane.add(cbxDestinationMoney);
-		
-		JButton btnCleaner = new JButton("Limpiar");
-		btnCleaner.setBounds(389, 107, 84, 23);
-		contentPane.add(btnCleaner);
 		
 		JLabel lblWarning = new JLabel("");
 		lblWarning.setBounds(111, 11, 46, 14);
@@ -89,7 +85,7 @@ public class FrmDefault extends JFrame {
 		
 		JLabel label = new JLabel("Tipo Conversion:");
 		label.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label.setBounds(283, 62, 108, 14);
+		label.setBounds(237, 60, 108, 14);
 		contentPane.add(label);
 		
 
@@ -117,16 +113,14 @@ public class FrmDefault extends JFrame {
 						break;
 					}
 				}
-				String val = (String)cbxDestinationMoney.getSelectedItem();
-				String t = txtCant.getText();
 				if(OriginMoney != null) {
-					Converter convert1 = new Converter(Double.parseDouble(txtCant.getText()),OriginMoney.Equivalents.get(val));
+					Converter convert1 = new Converter(Double.parseDouble(txtCant.getText()),OriginMoney.Equivalents.get((String)cbxDestinationMoney.getSelectedItem()));
 					Double Valor = convert1.convert();
 					txtCant.setText(Valor.toString());
 				}
 			}  
 		});
-		btnConvert.setBounds(239, 107, 140, 23);
+		btnConvert.setBounds(259, 107, 140, 23);
 		contentPane.add(btnConvert);	
 	}
 }

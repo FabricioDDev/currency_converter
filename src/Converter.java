@@ -12,7 +12,4 @@ public class Converter {
 	public Double convert() {
 		return FirstValue * SecondValue;
 	}
-	//public Double ReverseConvert() {
-	//	return SecondValue/FirstValue;
-	//}
 }

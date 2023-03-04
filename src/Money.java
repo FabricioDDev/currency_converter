@@ -1,6 +1,4 @@
-import java.util.Map;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 public class Money {
 	
 	public String Name;
