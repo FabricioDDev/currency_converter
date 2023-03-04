@@ -23,6 +23,13 @@ public class FrmDefault extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtCant;
+	private static FrmDefault frame = new FrmDefault();
+	/**
+	 * Create the frame.
+	 */
+	public FrmDefault() {
+		init();
+	}
 
 	/**
 	 * Launch the application.
@@ -31,7 +38,6 @@ public class FrmDefault extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					FrmDefault frame = new FrmDefault();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,15 +46,14 @@ public class FrmDefault extends JFrame {
 		});
 	}
 	
-	/**
-	 * Create the frame.
-	 */
-	public FrmDefault() {
+	
+	public void init()
+	{
 		setBackground(UIManager.getColor("CheckBox.background"));
 		setResizable(false);
 		setTitle("Convertidor de Moneda");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 472, 204);
+		setBounds(100, 100, 467, 257);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -88,8 +93,10 @@ public class FrmDefault extends JFrame {
 		label.setBounds(237, 60, 108, 14);
 		contentPane.add(label);
 		
-
-		
+		JLabel lblResult = new JLabel("");
+		lblResult.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblResult.setBounds(56, 156, 343, 14);
+		contentPane.add(lblResult);
 		
 		
 		ArrayList<Money> MoneyList = new ArrayList<Money>();
@@ -115,12 +122,16 @@ public class FrmDefault extends JFrame {
 				}
 				if(OriginMoney != null) {
 					Converter convert1 = new Converter(Double.parseDouble(txtCant.getText()),OriginMoney.Equivalents.get((String)cbxDestinationMoney.getSelectedItem()));
-					Double Valor = convert1.convert();
-					txtCant.setText(Valor.toString());
+					Double Valor = convert1.convert();Valor.toString();
+					String a = "$" + txtCant.getText() + cbxOriginMoney.getSelectedItem() + " Equivalen a $" + Valor.toString() + cbxDestinationMoney.getSelectedItem();
+					lblResult.setText(a); 
 				}
 			}  
+			
 		});
 		btnConvert.setBounds(259, 107, 140, 23);
 		contentPane.add(btnConvert);	
+		
+		
 	}
 }
